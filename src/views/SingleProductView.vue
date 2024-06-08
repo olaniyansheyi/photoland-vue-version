@@ -48,6 +48,11 @@ const cartStore = useCartStore()
             </button>
           </span>
           <button
+            @click="
+              () => {
+                cartStore.handleAddToCart(productsStore.currentSingleProduct)
+              }
+            "
             v-else
             class="bg-accent hover:bg-accent-hover text-primary font-semibold px-6 py-2 rounded-lg"
           >
