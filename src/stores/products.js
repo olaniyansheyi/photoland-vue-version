@@ -6,7 +6,8 @@ export const useProductsStore = defineStore('products', {
   state: () => ({
     products: [],
     loading: false,
-    error: null
+    error: null,
+    currentSingleProduct: {}
   }),
   actions: {
     async getProducts() {
@@ -20,8 +21,12 @@ export const useProductsStore = defineStore('products', {
         console.log(data)
       }
       this.loading = false
+    },
+    handleCurrentSingleProduct(curProduct) {
+      this.currentSingleProduct = curProduct
     }
   },
+
   getters: {
     latestProduct: (state) => state.products.filter((product) => product.newArrival !== false)
   }

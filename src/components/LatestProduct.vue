@@ -1,8 +1,10 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import { useProductsStore } from '@/stores/products'
+import { useCartStore } from '@/stores/cart'
 
 const productsStore = useProductsStore()
+const cartStore = useCartStore()
 </script>
 
 <template>
@@ -12,7 +14,15 @@ const productsStore = useProductsStore()
     </h2>
     <div class="mt-10 w-full flex flex-wrap items-center justify-center gap-5">
       <div v-for="newProduct in productsStore.latestProduct" :key="newProduct.id">
-        <RouterLink to="/product">
+        <RouterLink
+          @click="
+            () => {
+              productsStore.handleCurrentSingleProduct(newProduct)
+              cartStore.checkInCart(newProduct)
+            }
+          "
+          to="/product"
+        >
           <div
             class="bg-gradient-to-t from-[#1F2126] to-[#33363D] drop-shadow-2xl rounded-lg p-4 w-[18rem] relative"
           >
