@@ -19,6 +19,7 @@ const cartStore = useCartStore()
             () => {
               productsStore.handleCurrentSingleProduct(newProduct)
               cartStore.checkInCart(newProduct)
+              cartStore.handleInCart(newProduct)
             }
           "
           to="/product"
@@ -33,7 +34,7 @@ const cartStore = useCartStore()
               <h6 class="font-normal text-accent tracking-wide text-md mb-2">
                 {{ newProduct.category }}
               </h6>
-              <h3 class="tracking-wide font-semibold">{newProduct.name}</h3>
+              <h3 class="tracking-wide font-semibold">{{ newProduct.name }}</h3>
               <span class="flex gap-x-10">
                 <h5 class="font-normal mt-10 text-accent tracking-wide text-lg">
                   ${{ newProduct.originalPrice }}

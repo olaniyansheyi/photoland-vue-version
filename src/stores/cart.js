@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import supabase from '@/services/supabase'
 
 export const useCartStore = defineStore('cart', {
   // Data
@@ -16,20 +15,20 @@ export const useCartStore = defineStore('cart', {
         name: currentProduct.name,
         image: currentProduct.image,
         unitPrice: currentProduct.originalPrice,
-        quantity: 1,
-        totalPrice: this.cart?.map((item) => item.quantity * item.unitPrice)
+        quantity: 1
       }
       this.cart.push(newItem)
-      this.inCart = !this.inCart
-      console.log(typeof this.cart)
+      console.log('Cart after adding new item:', this.cart)
+      console.log('Type of cart:', typeof this.cart)
+    },
+    handleInCart(product) {
+      this.checkInCart(product) ? (this.inCart = true) : (this.inCart = false)
     }
   },
 
   getters: {
     checkInCart: (state) => (product) => {
-      return state.cart?.some((item) =>
-        item.id === product.id ? (state.inCart = true) : (state.inCart = false)
-      )
+      return state.cart?.some((item) => item.id === product.id)
     }
   }
 })
