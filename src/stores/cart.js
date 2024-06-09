@@ -6,7 +6,9 @@ export const useCartStore = defineStore('cart', {
     cart: [],
     openCart: false,
     hasOrder: false,
-    inCart: false
+    inCart: false,
+    emptyCart: false,
+    productQuantity: 1
   }),
   actions: {
     handleAddToCart(currentProduct) {
@@ -15,14 +17,26 @@ export const useCartStore = defineStore('cart', {
         name: currentProduct.name,
         image: currentProduct.image,
         unitPrice: currentProduct.originalPrice,
-        quantity: 1
+        quantity: this.productQuantity
       }
       this.cart.push(newItem)
-      console.log('Cart after adding new item:', this.cart)
-      console.log('Type of cart:', typeof this.cart)
+      console.log('Cart after adding new item:', this.cart.value)
     },
+
     handleInCart(product) {
       this.checkInCart(product) ? (this.inCart = true) : (this.inCart = false)
+    },
+
+    handleToggleCart() {
+      this.openCart = !this.openCart
+    },
+
+    handleDeleteCart(id) {
+      this.cart.filter((item) => item.id !== id)
+    },
+
+    handleClearCart() {
+      this.cart = []
     }
   },
 

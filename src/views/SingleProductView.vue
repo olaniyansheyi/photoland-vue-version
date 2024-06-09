@@ -51,6 +51,8 @@ const cartStore = useCartStore()
             @click="
               () => {
                 cartStore.handleAddToCart(productsStore.currentSingleProduct)
+                cartStore.checkInCart(productsStore.currentSingleProduct)
+                cartStore.handleInCart(productsStore.currentSingleProduct)
               }
             "
             v-else
