@@ -33,7 +33,7 @@ const cartStore = useCartStore()
           </h3>
 
           <span v-if="cartStore.inCart" class="flex flex-nowrap gap-x-2">
-            <RouterLink to="/home">
+            <RouterLink to="/">
               <button
                 class="bg-accent hover:bg-accent-hover text-primary font-semibold px-2 rounded-lg py-1"
               >
@@ -41,7 +41,7 @@ const cartStore = useCartStore()
               </button>
             </RouterLink>
             <button
-              onClick="{handleOpenCart}"
+              @click="cartStore.handleToggleCart"
               class="bg-accent hover:bg-accent-hover text-primary font-semibold px-3 py-1 rounded-lg"
             >
               View Cart

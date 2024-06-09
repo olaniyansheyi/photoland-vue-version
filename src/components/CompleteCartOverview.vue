@@ -3,6 +3,11 @@ import { useCartStore } from '@/stores/cart'
 import { RouterLink } from 'vue-router'
 
 const cartStore = useCartStore()
+
+const totalProductsPrice = cartStore.cart.reduce(
+  (acc, item) => acc + item.unitPrice * item.quantity,
+  0
+)
 </script>
 <template>
   <div
@@ -13,7 +18,7 @@ const cartStore = useCartStore()
     "
   >
     <span class="bg-primary h-[2rem]">
-      <RouterLink to="/home">
+      <RouterLink to="/">
         <font-awesome-icon
           :icon="['fas', 'times']"
           @click.prevent="cartStore.handleToggleCart"
@@ -24,7 +29,7 @@ const cartStore = useCartStore()
 
     <div v-if="cartStore.cart.length === 0" class="pt-24 text-center">
       <h4 class="text-2xl tracking-wide font-semibold">Your Cart Is Empty</h4>
-      <RouterLink to="/home">
+      <RouterLink to="/">
         <button
           @click="cartStore.handleToggleCart"
           class="font-semibold bg-accent text-primary rounded-lg px-6 py-2 mt-5"
@@ -52,8 +57,8 @@ const cartStore = useCartStore()
           </p>
           <span class="flex items-center justify-start gap-x-5 w-full mt-3">
             <select
-              v-model="cartStore.productQuantity"
-              :value="productQuantity"
+              v-model="cartItem.quantity"
+              :value="cartItem.quantity"
               class="outline-none w-[35%] rounded-lg py-1 px-1 text-primary"
             >
               <option :value="1">1</option>
@@ -63,7 +68,7 @@ const cartStore = useCartStore()
               <option :value="5">5</option>
             </select>
             <h4 class="text-lg tracking-wide font-semibold text-accent">
-              ${{ cartItem.unitPrice * cartItem.productQuantity }}
+              ${{ cartItem.unitPrice * cartItem.quantity }}
             </h4>
           </span>
           <h4 class="text-md tracking-wide font-normal text-accent my-2">
@@ -82,8 +87,6 @@ const cartStore = useCartStore()
       </div>
     </div>
 
-    {/* MAIN CART PRODUCTS */}
-
     <div class="h-auto bg-primary pt-2 px-5">
       <div class="flex items-center justify-between pb-6">
         <span class="flex flex-col gap-y-5">
@@ -96,19 +99,20 @@ const cartStore = useCartStore()
           </button>
         </span>
         <span class="flex flex-col gap-y-5">
-          <h4 class="font-semibold text-2xl tracking-wide text-right">${{ totalProductsPrice }}</h4>
-          <Link to="/create-order">
-            <button
-              @click="
-                () => {
-                  cartStore.handleToggleCart()
-                }
-              "
-              class="sm:px-8 px-5 py-2 rounded-lg bg-accent hover:bg-accent-hover tracking-wide font-semibold text-primary"
-            >
-              Order Now
-            </button>
-          </Link>
+          <h4 class="font-semibold text-2xl tracking-wide text-right">
+            ${{ cartStore.totalProductsPrice }}
+          </h4>
+
+          <button
+            @click="
+              () => {
+                cartStore.handleToggleCart()
+              }
+            "
+            class="sm:px-8 px-5 py-2 rounded-lg bg-accent hover:bg-accent-hover tracking-wide font-semibold text-primary"
+          >
+            Order Now
+          </button>
         </span>
       </div>
     </div>

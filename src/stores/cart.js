@@ -7,8 +7,7 @@ export const useCartStore = defineStore('cart', {
     openCart: false,
     hasOrder: false,
     inCart: false,
-    emptyCart: false,
-    productQuantity: 1
+    emptyCart: false
   }),
   actions: {
     handleAddToCart(currentProduct) {
@@ -17,7 +16,7 @@ export const useCartStore = defineStore('cart', {
         name: currentProduct.name,
         image: currentProduct.image,
         unitPrice: currentProduct.originalPrice,
-        quantity: this.productQuantity
+        quantity: 1
       }
       this.cart.push(newItem)
       console.log('Cart after adding new item:', this.cart.value)
@@ -33,6 +32,7 @@ export const useCartStore = defineStore('cart', {
 
     handleDeleteCart(id) {
       this.cart.filter((item) => item.id !== id)
+      console.log('jhdkn')
     },
 
     handleClearCart() {
@@ -43,6 +43,8 @@ export const useCartStore = defineStore('cart', {
   getters: {
     checkInCart: (state) => (product) => {
       return state.cart?.some((item) => item.id === product.id)
-    }
+    },
+    totalProductsPrice: (state) =>
+      state.cart.reduce((acc, item) => acc + item.unitPrice * item.quantity, 0)
   }
 })
