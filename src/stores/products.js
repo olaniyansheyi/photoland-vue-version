@@ -7,7 +7,7 @@ export const useProductsStore = defineStore('products', {
     products: [],
     loading: false,
     error: null,
-    currentSingleProduct: {}
+    currentSingleProduct: null
   }),
   actions: {
     async getProducts() {

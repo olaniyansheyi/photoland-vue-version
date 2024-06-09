@@ -77,17 +77,13 @@ const totalProductsPrice = cartStore.cart.reduce(
         </div>
         <font-awesome-icon
           :icon="['fas', 'times']"
-          @click="
-            () => {
-              cartStore.handleDeleteCart(cartItem.id)
-            }
-          "
+          @click="cartStore.handleDeleteCart(cartItem.id)"
           class="text-white text-2xl font-bold absolute top-8 right-2 cursor-pointer"
         />
       </div>
     </div>
 
-    <div class="h-auto bg-primary pt-2 px-5">
+    <div v-if="cartStore.cart.length !== 0" class="h-auto bg-primary pt-2 px-5">
       <div class="flex items-center justify-between pb-6">
         <span class="flex flex-col gap-y-5">
           <h4 class="font-semibold text-2xl tracking-wide text-left">Total:</h4>

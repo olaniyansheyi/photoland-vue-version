@@ -31,8 +31,8 @@ export const useCartStore = defineStore('cart', {
     },
 
     handleDeleteCart(id) {
-      this.cart.filter((item) => item.id !== id)
-      console.log('jhdkn')
+      this.cart = this.cart.filter((item) => item.id !== id)
+      console.log(id)
     },
 
     handleClearCart() {

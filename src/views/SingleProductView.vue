@@ -3,6 +3,11 @@ import { RouterLink } from 'vue-router'
 import { useProductsStore } from '@/stores/products'
 import { useCartStore } from '@/stores/cart'
 
+import { useRouter } from 'vue-router'
+import { onBeforeMount } from 'vue'
+
+const router = useRouter()
+
 const productsStore = useProductsStore()
 const cartStore = useCartStore()
 </script>

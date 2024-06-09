@@ -2,6 +2,9 @@
 import { ref } from 'vue'
 import Menu from './Menu.vue'
 import logo from '../img/logo.png'
+import { useCartStore } from '@/stores/cart'
+
+const cartStore = useCartStore()
 
 const openMenu = ref(false)
 const searchQuery = ref('')
@@ -45,12 +48,12 @@ const handleToggleMenu = () => {
         <h6 class="lg:text-sm sm:text-xs font-semibold sm:flex hidden">
           NEED HELP: +2348135158754
         </h6>
-        <div @click="handleOpenCart" class="relative cursor-pointer">
+        <div @click="cartStore.handleToggleCart" class="relative cursor-pointer">
           <font-awesome-icon class="text-4xl" :icon="['fas', 'cart-plus']" />
           <span
             class="bg-accent rounded-full flex items-center justify-center h-5 w-5 absolute font-semibold text-sm right-0 top-0 text-primary"
           >
-            0
+            {{ cartStore.cart.length }}
           </span>
         </div>
       </span>
