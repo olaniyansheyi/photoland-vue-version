@@ -8,5 +8,5 @@ const compactProduct = productsStore.products.filter((product) => product.catego
 </script>
 
 <template>
-  <ProductCategory :compactProduct="compactProduct" />
+  <ProductCategory :productCategory="compactProduct" />
 </template>

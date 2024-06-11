@@ -4,13 +4,13 @@ import { RouterLink } from 'vue-router'
 import { defineProps } from 'vue'
 
 const props = defineProps({
-  compactProduct: {
+  productCategory: {
     type: Array,
     required: true
   }
 })
 
-const categoriesSet = new Set(props.compactProduct.map((product) => product.category))
+const categoriesSet = new Set(props.productCategory.map((product) => product.category))
 const uniqueCategories = Array.from(categoriesSet)
 </script>
 
@@ -29,7 +29,7 @@ const uniqueCategories = Array.from(categoriesSet)
         <span class="text-accent"> camera</span>
       </h2>
       <div class="w-full flex flex-wrap items-center justify-center gap-5">
-        <RouterLink to="/product" v-for="product in compactProduct" :key="product.id">
+        <RouterLink to="/product" v-for="product in productCategory" :key="product.id">
           <div
             class="bg-gradient-to-t from-[#1F2126] to-[#33363D] drop-shadow-2xl rounded-lg p-4 sm:w-[16rem] lg:w-[15rem] w-[18rem] relative mt-10 sm:mt-3"
           >
