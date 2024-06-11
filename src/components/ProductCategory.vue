@@ -9,6 +9,9 @@ const props = defineProps({
     required: true
   }
 })
+
+const categoriesSet = new Set(props.compactProduct.map((product) => product.category))
+const uniqueCategories = Array.from(categoriesSet)
 </script>
 
 <template>
@@ -17,8 +20,12 @@ const props = defineProps({
   >
     <ProductCategoryList />
     <div class="lg:w-[85%] sm:w-[80%]">
-      <h2 class="text-2xl font-bold tracking-wide text-center sm:text-left">
-        {category}
+      <h2
+        v-for="(category, index) in uniqueCategories"
+        :key="index"
+        class="text-2xl font-bold tracking-wide text-center sm:text-left"
+      >
+        {{ category }}
         <span class="text-accent"> camera</span>
       </h2>
       <div class="w-full flex flex-wrap items-center justify-center gap-5">
