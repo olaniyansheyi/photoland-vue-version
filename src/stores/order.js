@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
 import supabase from '@/services/supabase'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 export const useOrderStore = defineStore('order', {
   // Data
   state: () => ({
-    isLoading: false,
-    error: ''
+    isLoading: false
   }),
   actions: {
     async createOrder(newOrder) {
@@ -18,13 +20,12 @@ export const useOrderStore = defineStore('order', {
           .single()
 
         if (error) {
-          throw new Error('order could not be created')
+          toast.error('order could not be created')
         }
 
         return data
       } catch (error) {
-        this.error = error
-        console.log(this.error)
+        console.error(error)
       } finally {
         this.isLoading = false
       }

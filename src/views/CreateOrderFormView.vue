@@ -1,7 +1,10 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useOrderStore } from '@/stores/order'
 import { useCartStore } from '@/stores/cart'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 const orderStore = useOrderStore()
 const cartStore = useCartStore()
@@ -9,15 +12,47 @@ const cartStore = useCartStore()
 const name = ref(null)
 const address = ref(null)
 const phoneNo = ref(null)
+const dateTime = ref('')
+
+onMounted(() => {
+  const calculateDateTime = () => {
+    const now = new Date()
+    now.setHours(now.getHours() + 24)
+
+    const year = now.getFullYear()
+    const month = String(now.getMonth() + 1).padStart(2, '0') // Months are zero-indexed
+    const day = String(now.getDate()).padStart(2, '0')
+    const hours = String(now.getHours()).padStart(2, '0')
+    const minutes = String(now.getMinutes()).padStart(2, '0')
+
+    const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}`
+    dateTime.value = formattedDateTime
+  }
+
+  calculateDateTime()
+})
 
 const handleSubmitOrder = function () {
   if (!name.value || !address.value || !phoneNo.value) {
-    toast.error('please fill the form with your correcr details')
+    return toast.error('please fill the form with your correcr details')
   }
 
   if (cartStore.cart.length === 0) {
     return cartStore.handleToggleCart()
   }
+
+  const newOrder = {
+    status: 'preparing order',
+    hoursLeft: 24,
+    deliveryDay: dateTime.value,
+    products: [...cartStore.cart],
+    name: name.value,
+    address: address.value,
+    phoneNumber: phoneNo.value
+  }
+  orderStore.createOrder(newOrder)
+
+  toast.success('your order has been successfully placed')
 }
 </script>
 
@@ -51,7 +86,6 @@ const handleSubmitOrder = function () {
             v-model="phoneNo"
             class="w-auto text-primary py-2 mt-2 outline-none px-5 rounded-lg"
             type="number"
-            required
           />
         </span>
         <span class="flex flex-col">
