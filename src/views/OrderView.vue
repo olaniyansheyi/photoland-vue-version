@@ -8,6 +8,10 @@ const orderStore = useOrderStore()
 onMounted(async () => {
   await orderStore.getOrder(orderStore.currentOrderId)
 })
+// const totalProductsPrice = orderStore.order?.products?.reduce(
+//   (acc, item) => acc + item.unitPrice * item.quantity,
+//   0
+// )
 </script>
 
 <template>
@@ -53,8 +57,8 @@ onMounted(async () => {
 
     <div class="bg-gradient-to-t from-[#1F2126] to-[#33363D] drop-shadow-2xl space-y-2 px-6 py-5">
       <p class="text-sm font-normal text-accent">Total Price: ${{ totalProductsPrice }}.00</p>
-      <p class="text-sm font-normal text-accent">Your address: {order.address}</p>
-      <p class="font-bold">To pay on delivery: ${totalProductsPrice}.00</p>
+      <p class="text-sm font-normal text-accent">Your address: {{ orderStore.order.address }}</p>
+      <p class="font-bold">To pay on delivery: ${{ totalProductsPrice }}.00</p>
     </div>
     <div class="flex justify-center items-center gap-x-5">
       <RouterLink to="/">
