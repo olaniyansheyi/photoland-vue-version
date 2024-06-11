@@ -99,16 +99,18 @@ const totalProductsPrice = cartStore.cart.reduce(
             ${{ cartStore.totalProductsPrice }}
           </h4>
 
-          <button
-            @click="
-              () => {
-                cartStore.handleToggleCart()
-              }
-            "
-            class="sm:px-8 px-5 py-2 rounded-lg bg-accent hover:bg-accent-hover tracking-wide font-semibold text-primary"
-          >
-            Order Now
-          </button>
+          <RouterLink to="/create-order">
+            <button
+              @click="
+                () => {
+                  cartStore.handleToggleCart()
+                }
+              "
+              class="sm:px-8 px-5 py-2 rounded-lg bg-accent hover:bg-accent-hover tracking-wide font-semibold text-primary"
+            >
+              Order Now
+            </button>
+          </RouterLink>
         </span>
       </div>
     </div>
