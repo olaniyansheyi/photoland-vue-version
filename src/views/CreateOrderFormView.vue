@@ -53,6 +53,9 @@ const handleSubmitOrder = function () {
   orderStore.createOrder(newOrder)
 
   toast.success('your order has been successfully placed')
+  name.value = null
+  address.value = null
+  phoneNo.value = null
 }
 </script>
 
