@@ -3,8 +3,10 @@ import { onMounted, ref } from 'vue'
 import { useOrderStore } from '@/stores/order'
 import { useCartStore } from '@/stores/cart'
 import { useToast } from 'vue-toastification'
+import { useRouter } from 'vue-router'
 
 const toast = useToast()
+const router = useRouter()
 
 const orderStore = useOrderStore()
 const cartStore = useCartStore()
@@ -32,9 +34,9 @@ onMounted(() => {
   calculateDateTime()
 })
 
-const handleSubmitOrder = function () {
+const handleSubmitOrder = async () => {
   if (!name.value || !address.value || !phoneNo.value) {
-    return toast.error('please fill the form with your correcr details')
+    return toast.error('Please fill the form with your correct details')
   }
 
   if (cartStore.cart.length === 0) {
@@ -50,12 +52,22 @@ const handleSubmitOrder = function () {
     address: address.value,
     phoneNumber: phoneNo.value
   }
-  orderStore.createOrder(newOrder)
 
-  toast.success('your order has been successfully placed')
-  name.value = null
-  address.value = null
-  phoneNo.value = null
+  try {
+    const orderId = await orderStore.createOrder(newOrder)
+
+    if (orderId) {
+      name.value = null
+      address.value = null
+      phoneNo.value = null
+      cartStore.cart = []
+      orderStore.handleSetCurrentOrderId(orderId.id)
+      router.push(`/order`)
+    }
+  } catch (error) {
+    console.error(error)
+    toast.error('Failed to place the order')
+  }
 }
 </script>
 

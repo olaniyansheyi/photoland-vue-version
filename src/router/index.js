@@ -8,6 +8,7 @@ import PageNotFoundView from '../views/PageNotFoundView.vue'
 import ProfessionalView from '../views/ProfessionalView.vue'
 import SingleProductView from '../views/SingleProductView.vue'
 import CreateOrderFormView from '../views/CreateOrderFormView.vue'
+import OrderView from '../views/OrderView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,6 +52,11 @@ const router = createRouter({
       path: '/create-order',
       name: 'createOrder',
       component: CreateOrderFormView
+    },
+    {
+      path: '/order',
+      name: 'order',
+      component: OrderView
     },
     {
       path: '/:pathMatch(.*)*',
