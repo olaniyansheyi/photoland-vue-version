@@ -4,9 +4,9 @@ import { useProductsStore } from '@/stores/products'
 
 const productsStore = useProductsStore()
 
-const compactProduct = productsStore.products.filter((product) => product.category === 'COMPACT')
+const dslrProduct = productsStore.products.filter((product) => product.category === 'DSLR')
 </script>
 
 <template>
-  <ProductCategory :productCategory="compactProduct" />
+  <ProductCategory :productCategory="dslrProduct" />
 </template>
