@@ -10,7 +10,8 @@ export const useOrderStore = defineStore('order', {
   // Data
   state: () => ({
     isLoading: false,
-    currentOrderId: null
+    currentOrderId: null,
+    order: {}
   }),
   actions: {
     async createOrder(newOrder) {
@@ -49,6 +50,7 @@ export const useOrderStore = defineStore('order', {
         if (error || !data) {
           throw new Error('order could not be fetched')
         }
+        this.order = data
 
         return data
       } catch (error) {
