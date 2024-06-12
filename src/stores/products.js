@@ -18,7 +18,6 @@ export const useProductsStore = defineStore('products', {
         this.error = 'Products could not be loaded'
       } else {
         this.products = data
-        console.log(data)
       }
       this.loading = false
     },

@@ -11,7 +11,8 @@ export const useOrderStore = defineStore('order', {
   state: () => ({
     isLoading: false,
     currentOrderId: null,
-    order: {}
+    order: {},
+    error: false
   }),
   actions: {
     async createOrder(newOrder) {
@@ -25,8 +26,9 @@ export const useOrderStore = defineStore('order', {
 
         if (error) {
           toast.error('order could not be created')
+          this.error = true
         }
-
+        this.error = false
         return data
       } catch (error) {
         console.error(error)

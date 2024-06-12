@@ -3,14 +3,23 @@ import { ref } from 'vue'
 import Menu from './Menu.vue'
 import logo from '../img/logo.png'
 import { useCartStore } from '@/stores/cart'
+import { useRouter } from 'vue-router'
+import { useOrderStore } from '@/stores/order'
+
+const router = useRouter()
+
+const orderStore = useOrderStore()
 
 const cartStore = useCartStore()
 
 const openMenu = ref(false)
-const searchQuery = ref('')
 
 const handleToggleMenu = () => {
   openMenu.value = !openMenu.value
+}
+
+const handleSubmitSearch = () => {
+  router.push('/order')
 }
 </script>
 
@@ -29,13 +38,13 @@ const handleToggleMenu = () => {
           <img :src="logo" alt="Logo" class="sm:w-28 w-full mx-auto" />
         </router-link>
       </div>
-      <form @submit="handleSubmit" class="sm:w-2/4 w-full sm:order-none order-last">
+      <form @submit.prevent="handleSubmitSearch" class="sm:w-2/4 w-full sm:order-none order-last">
         <span class="w-full flex items-center justify-center">
           <input
-            v-model="searchQuery"
+            v-model="orderStore.currentOrderId"
             type="text"
             placeholder="Track your order with your order id"
-            class="outline-none bg-white placeholder:text-primary rounded-l-md py-3 px-2 text-center placeholder:text-sm w-full"
+            class="outline-none bg-white placeholder:text-primary rounded-l-md py-3 px-2 text-center text-primary placeholder:text-sm w-full"
           />
           <button type="submit" class="bg-accent text-primary px-5 py-3 rounded-r-md">
             <font-awesome-icon :icon="['fas', 'search']" />

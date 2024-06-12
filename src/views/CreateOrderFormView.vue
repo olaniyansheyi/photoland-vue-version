@@ -65,7 +65,7 @@ const handleSubmitOrder = async () => {
       router.push(`/order`)
     }
   } catch (error) {
-    console.error(error)
+
     toast.error('Failed to place the order')
   }
 }

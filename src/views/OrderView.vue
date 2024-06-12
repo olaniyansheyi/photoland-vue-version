@@ -1,17 +1,38 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, watchEffect } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useOrderStore } from '@/stores/order'
 
 const orderStore = useOrderStore()
 
-onMounted(async () => {
+// onMounted(async () => {
+//   await orderStore.getOrder(orderStore.currentOrderId)
+// })
+watchEffect(async () => {
   await orderStore.getOrder(orderStore.currentOrderId)
 })
 </script>
 
 <template>
-  <div class="px-4 space-y-8 text-white py-5 sm:py-20">
+  <div
+    v-if="orderStore.error || !orderStore.currentOrderId"
+    class="px-4 py-5 h-[50vh] text-white text-center"
+  >
+    <h2 class="text-xl font-semibold mb-4 tracking-wide">Error</h2>
+    <p class="text-red-500 text-lg font-semibold py-3 tracking-wide">
+      please make sure you entered your product order Id correctly.
+    </p>
+    <div class="flex justify-center items-center gap-x-5 mt-5">
+      <RouterLink to="/">
+        <button
+          class="text-primary bg-accent hover:bg-accent-hover px-5 py-2 font-semibold rounded-lg"
+        >
+          Go to Home
+        </button>
+      </RouterLink>
+    </div>
+  </div>
+  <div v-else class="px-4 space-y-8 text-white py-5 sm:py-20">
     <div class="flex items-center justify-between flex-wrap gap-2">
       <h2 class="text-xl font-semibold mb-4 sm:mb-0">
         Your orderId: #se1y-{{ orderStore.order.id }}
