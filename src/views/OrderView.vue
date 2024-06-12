@@ -8,7 +8,9 @@ const orderStore = useOrderStore()
 // onMounted(async () => {
 //   await orderStore.getOrder(orderStore.currentOrderId)
 // })
+
 watchEffect(async () => {
+  Number(orderStore.currentOrderId)
   await orderStore.getOrder(orderStore.currentOrderId)
 })
 </script>

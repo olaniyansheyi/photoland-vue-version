@@ -13,12 +13,26 @@ const orderStore = useOrderStore()
 const cartStore = useCartStore()
 
 const openMenu = ref(false)
+const searchQuery = ref('')
 
 const handleToggleMenu = () => {
   openMenu.value = !openMenu.value
 }
 
+const extractNumbers = (str) => {
+  str = String(str)
+  const index = str.indexOf('-')
+  if (index !== -1) {
+    return str.substring(index + 1)
+  }
+  return str
+}
+
 const handleSubmitSearch = () => {
+  const productId = extractNumbers(searchQuery.value)
+  Number(productId)
+  orderStore.handleSetSearchId(productId)
+  console.log(productId)
   router.push('/order')
 }
 </script>
@@ -41,7 +55,7 @@ const handleSubmitSearch = () => {
       <form @submit.prevent="handleSubmitSearch" class="sm:w-2/4 w-full sm:order-none order-last">
         <span class="w-full flex items-center justify-center">
           <input
-            v-model="orderStore.currentOrderId"
+            v-model="searchQuery"
             type="text"
             placeholder="Track your order with your order id"
             class="outline-none bg-white placeholder:text-primary rounded-l-md py-3 px-2 text-center text-primary placeholder:text-sm w-full"

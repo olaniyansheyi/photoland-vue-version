@@ -63,6 +63,10 @@ export const useOrderStore = defineStore('order', {
     },
     handleSetCurrentOrderId(id) {
       this.currentOrderId = id
+    },
+
+    handleSetSearchId(id) {
+      this.currentOrderId = id
     }
   },
 
