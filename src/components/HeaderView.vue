@@ -5,19 +5,16 @@ import logo from '../img/logo.png'
 import { useCartStore } from '@/stores/cart'
 import { useRouter } from 'vue-router'
 import { useOrderStore } from '@/stores/order'
+import { useMenuStore } from '@/stores/menu'
 
 const router = useRouter()
 
 const orderStore = useOrderStore()
+const menuStore = useMenuStore()
 
 const cartStore = useCartStore()
 
-const openMenu = ref(false)
 const searchQuery = ref('')
-
-const handleToggleMenu = () => {
-  openMenu.value = !openMenu.value
-}
 
 const extractNumbers = (str) => {
   str = String(str)
@@ -39,12 +36,16 @@ const handleSubmitSearch = () => {
 
 <template>
   <div>
-    <Menu :handleToggleMenu="handleToggleMenu" v-if="openMenu" @toggleMenu="handleToggleMenu" />
+    <Menu
+      :handleToggleMenu="menuStore.handleToggleMenu"
+      v-if="menuStore.openMenu"
+      @toggleMenu="menuStore.handleToggleMenu"
+    />
     <div
       v-else
       class="w-full py-5 bg-primary h-auto flex justify-between items-center lg:px-32 sm:px-6 px-3 flex-wrap gap-y-3 relative"
     >
-      <span class="sm:hidden flex" @click="handleToggleMenu">
+      <span class="sm:hidden flex" @click="menuStore.handleToggleMenu">
         <font-awesome-icon class="text-white text-4xl cursor-pointer" :icon="['fas', 'bars']" />
       </span>
       <div class="sm:w-[15%] w-[40%]">

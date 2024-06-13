@@ -3,6 +3,7 @@ import camera from '../img/camera.png'
 import PromoImg1 from '../img/promo_img1.png'
 import PromoImg2 from '../img/promo_img2.png'
 import ProductCategoryList from '../components/ProductCategoryList.vue'
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
@@ -38,9 +39,9 @@ import ProductCategoryList from '../components/ProductCategoryList.vue'
       >
         <div class="sm:w-[45%] w-[60%]">
           <h4 class="font-bold text-lg tracking-wider">SAVE 35% ALL DSLR CAMERAS</h4>
-          <Link to="/products-dslr">
+          <RouterLink to="/products-dslr">
             <h5 class="text-accent font-normal tracking-wider cursor-pointer mt-3">SHOP NOW</h5>
-          </Link>
+          </RouterLink>
         </div>
         <div class="absolute top-1 right-0">
           <img :src="PromoImg1" class="w-25" alt="" />
@@ -51,9 +52,9 @@ import ProductCategoryList from '../components/ProductCategoryList.vue'
       >
         <div class="sm:w-[45%] w-[58%]">
           <h4 class="font-bold text-lg tracking-wider">SAVE 35% ALL FILM CAMERAS</h4>
-          <Link to="/products-film">
+          <RouterLink to="/products-film">
             <h5 class="text-accent font-normal tracking-wider cursor-pointer mt-3">SHOP NOW</h5>
-          </Link>
+          </RouterLink>
         </div>
         <div class="absolute top-1 right-0">
           <img :src="PromoImg2" class="w-25" alt="" />
